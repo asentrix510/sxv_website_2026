@@ -6,10 +6,10 @@ import { honourableMentions, studentBodies } from "@/utils/teamData";
 
 export default function TeamPage() {
   return (
-    <section className="bg-black px-6 py24 text-white">
+    <section className="bg-[#E0E5EC] px-6 py24 text-[#4A5568]">
       <div className="mb-20 text-right">
         <a href="/committees">
-        <h2 className="text-sm uppercase tracking-widest text-red-500">
+        <h2 className="text-sm uppercase tracking-widest text-blue-500">
           CLUBS & COMMITTEES
           <span className="text-lg "> ↗</span>
         </h2>
@@ -19,7 +19,7 @@ export default function TeamPage() {
       </div>
       <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
         {honourableMentions.map((member) => (
-          <Card key={member.id} classname="bg-black border border-white/10">
+          <Card key={member.id} classname="bg-[#f6f8fb] border border-white/10">
             <div className="text-center">
               <div className="relative mx-auto h-70 w-70 overflow-hidden rounded-xl">
                 <Image
@@ -43,7 +43,7 @@ export default function TeamPage() {
        
       <div className="mt-12 grid gap-10 sm:grid-cols-3 justify-center">
         {studentBodies.map((member) => (
-          <Card key={member.id} classname="bg-black border border-white/10">
+          <Card key={member.id} classname="bg-[#f6f8fb]  border border-white/10">
             <div className="text-center ">
               <div  className="relative mx-auto h-70 w-70 overflow-hidden rounded-xl ">
                 <Image

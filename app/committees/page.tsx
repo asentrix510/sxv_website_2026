@@ -8,7 +8,7 @@ export default function ClubsPage() {
   const [showAll, setShowAll] = useState(false);
   const visibleClubs = showAll ? clubs : clubs.slice(0, 5);
   return (
-    <section className="min-h-screen bg-black px-6 py-24 text-white">
+    <section className="min-h-screen bg-[#E0E5EC] px-6 py-24 text-[#4A5568]">
       
       <div className="mb-20 text-center">
         <h1 className="text-4xl font-bold tracking-wide">
@@ -19,7 +19,7 @@ export default function ClubsPage() {
         </p>
       </div>
 
-      <div className="mx-auto max-w-6xl rounded-[40px] bg-[#05070d] p-8">
+      <div className="mx-auto max-w-6xl rounded-[40px] bg-[#E0E5EC] shadow-2xl p-8">
         <div
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           style={{ gridAutoRows: "120px" }}
