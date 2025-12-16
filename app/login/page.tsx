@@ -85,17 +85,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex justify-center px-4 py-10">
+    <div className="min-h-screen bg-[#E0E5EC] flex justify-center px-4 py-10 text-[#4A5568]">
       <div className="w-full max-w-xl">
         {/*FieldSet added to group*/}
         <fieldset className="pb-8 px-[20px] md:px-8 pt-3 border-2 border-gray-500 rounded-2xl max-md:mx-[6.5px]">
-          <legend className={`text-[35px] max-md:text-[29px] px-[6px] ${prata.className} font-extrabold text-center text-white cursor-default`}>
+          <legend className={`text-[35px] max-md:text-[29px] px-[6px] ${prata.className} font-extrabold text-center  cursor-default`}>
             LOGIN
           </legend>
-          <p className={`text-[30px] max-md:text-[24px] ${af.className} font-semibold text-center text-white mb-2 cursor-default`}>
+          <p className={`text-[30px] max-md:text-[24px] ${af.className} font-semibold text-center  mb-2 cursor-default`}>
             Welcome Back!
           </p>
-          <p className={`text-lg max-md:text-[15px] ${domine.className} font-semibold text-center text-white mb-5 cursor-default`}>
+          <p className={`text-lg max-md:text-[15px] ${domine.className} font-semibold text-center  mb-5 cursor-default`}>
             Sign in to continue
           </p>
           <div className="space-y-5">
@@ -109,11 +109,11 @@ export default function LoginPage() {
 
             {/* Divider */}
             <div className="flex items-center">
-              <div className="flex-1 h-px bg-white"></div>
-              <span className={`px-[3.5px] ${i_serif.className} text-white font-semibold text-sm cursor-default`}>
+              <div className="flex-1 h-px bg-[#4A5568]"></div>
+              <span className={`px-[3.5px] ${i_serif.className}  font-semibold text-sm cursor-default`}>
                 Or continue with email
               </span>
-              <div className="flex-1 h-px bg-white"></div>
+              <div className="flex-1 h-px bg-[#4A5568]"></div>
             </div>
             {/*Input Fields*/}
             <div>
@@ -126,7 +126,7 @@ export default function LoginPage() {
                 sx={{
                   width: "100%",
                   "& .MuiOutlinedInput-root": {
-                    backgroundColor: "black",
+                    backgroundColor: "white",
                     borderRadius: "0.5rem",
                     "& fieldset": {
                       borderColor: "#6b7280",
@@ -180,7 +180,7 @@ export default function LoginPage() {
                 sx={{
                   width: "100%",
                   "& .MuiOutlinedInput-root": {
-                    backgroundColor: "black",
+                    backgroundColor: "white",
                     borderRadius: "0.5rem",
                     "& fieldset": {
                       borderColor: "#6b7280",
@@ -214,7 +214,7 @@ export default function LoginPage() {
             <div className="flex justify-end items-center mt-[3px]">
               <Link
                 href="/forgot"
-                className="text-sm text-emerald-600 hover:text-emerald-700 hover:underline focus:text-emerald-700 focus:underline font-medium"
+                className="text-sm text-blue-600 hover:text-blue-700 hover:underline focus:text-blue-700 focus:underline font-medium"
               >
                 Forgot password?
               </Link>
@@ -223,17 +223,17 @@ export default function LoginPage() {
             <Button
               onClick={handleLogin}
               disabled={loading}
-              className="w-full cursor-pointer mt-[3px] py-3 px-1.5 bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 text-white font-semibold disabled:bg-emerald-300 transition-colors duration-300 shadow-sm"
+              className="w-full cursor-pointer mt-[3px] py-3 px-1.5 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700  font-semibold disabled:bg-blue-300 transition-colors duration-300 shadow-sm"
             >
               {loading ? "Logging in..." : "Login"}
             </Button>
             <div className="flex justify-center gap-1 md:gap-[3px]">
-              <p className="text-[15.5px] max-md:text-[14.5px] text-white font-medium md:font-semibold cursor-default">
+              <p className="text-[15.5px] max-md:text-[14.5px]  font-medium md:font-semibold cursor-default">
                 Didn&apos;t register?{" "}
               </p>
               <Link
                 href="/signup"
-                className="max-md:text-[14.5px] text-[15.5px] text-emerald-600 hover:text-emerald-700 hover:underline focus:text-emerald-700 focus:underline font-medium md:font-semibold"
+                className="max-md:text-[14.5px] text-[15.5px] text-blue-600 hover:text-blue-700 hover:underline focus:text-blue-700 focus:underline font-medium md:font-semibold"
               >
                 Sign up
               </Link>

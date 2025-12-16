@@ -231,7 +231,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex justify-center px-4 py-10">
+    <div className="min-h-screen bg-[#E0E5EC] flex justify-center px-4 py-10 text-[#4A5568]">
       <div className="w-full max-w-xl">
         {/* Top stepper and title */}
         <div className="flex items-center justify-between mb-8">
@@ -243,7 +243,7 @@ export default function SignupPage() {
                 className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold border transition-colors
               ${
                 step >= s
-                  ? "bg-emerald-600 text-white border-emerald-600"
+                  ? "bg-blue-600 text-white border-blue-600"
                   : "bg-white text-gray-600 border-gray-300"
               }`}
               >
@@ -255,12 +255,12 @@ export default function SignupPage() {
         </div>
         <fieldset className="pb-8 px-[20px] md:px-8 pt-3 border-2 border-gray-500 rounded-2xl max-md:mx-[6.5px]">
           <legend
-            className={`text-3xl font-bold ${prata.className} text-center text-white`}
+            className={`text-3xl font-bold ${prata.className} text-center`}
           >
             Signup
           </legend>
           <p
-            className={`text-lg text-center ${af.className} text-gray-100 mb-5`}
+            className={`text-lg text-center ${af.className} mb-5`}
           >
             Create your account
           </p>
@@ -282,7 +282,7 @@ export default function SignupPage() {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span
-                    className={`px-[6.5px] ${i_serif.className} bg-black text-gray-200`}
+                    className={`px-[6.5px] ${i_serif.className} bg-[#E0E5EC]`}
                   >
                     Or continue with email
                   </span>
@@ -297,7 +297,7 @@ export default function SignupPage() {
                   sx={{
                     width: "100%",
                     "& .MuiOutlinedInput-root": {
-                      backgroundColor: "black",
+                      backgroundColor: "white",
                       borderRadius: "0.5rem",
                       "& fieldset": {
                         borderColor: "#6b7280",
@@ -310,17 +310,17 @@ export default function SignupPage() {
                       },
                     },
                     "& .MuiInputLabel-root": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                     },
                     "& .MuiOutlinedInput-root.Mui-focused .MuiInputLabel-root":
                       {
                         color: "gray.300",
                       },
                     "& .MuiOutlinedInput-input": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                     },
                     "& .MuiOutlinedInput-input::placeholder": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                       opacity: 1,
                     },
                   }}
@@ -339,7 +339,7 @@ export default function SignupPage() {
                   sx={{
                     width: "100%",
                     "& .MuiOutlinedInput-root": {
-                      backgroundColor: "black",
+                      backgroundColor: "white",
                       borderRadius: "0.5rem",
                       "& fieldset": {
                         borderColor: "#6b7280",
@@ -352,17 +352,17 @@ export default function SignupPage() {
                       },
                     },
                     "& .MuiInputLabel-root": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                     },
                     "& .MuiOutlinedInput-root.Mui-focused .MuiInputLabel-root":
                       {
                         color: "gray.300",
                       },
                     "& .MuiOutlinedInput-input": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                     },
                     "& .MuiOutlinedInput-input::placeholder": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                       opacity: 1,
                     },
                   }}
@@ -381,7 +381,7 @@ export default function SignupPage() {
                   sx={{
                     width: "100%",
                     "& .MuiOutlinedInput-root": {
-                      backgroundColor: "black",
+                      backgroundColor: "white",
                       borderRadius: "0.5rem",
                       "& fieldset": {
                         borderColor: "#6b7280",
@@ -394,17 +394,17 @@ export default function SignupPage() {
                       },
                     },
                     "& .MuiInputLabel-root": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                     },
                     "& .MuiOutlinedInput-root.Mui-focused .MuiInputLabel-root":
                       {
                         color: "gray.300",
                       },
                     "& .MuiOutlinedInput-input": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                     },
                     "& .MuiOutlinedInput-input::placeholder": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                       opacity: 1,
                     },
                   }}
@@ -415,7 +415,7 @@ export default function SignupPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-white mb-2">
+                <label className="block text-sm font-medium mb-2">
                   Institution
                 </label>
                 <div className="flex gap-3">
@@ -428,8 +428,8 @@ export default function SignupPage() {
                       className={`flex items-center px-4 py-3 rounded-lg border cursor-pointer text-sm font-medium transition-colors
                   ${
                     form.institution === inst.value
-                      ? "border-emerald-500 bg-emerald-50 text-emerald-700"
-                      : "border-gray-300 hover:border-gray-400 text-white"
+                      ? "border-blue-500 bg-blue-50 text-blue-700"
+                      : "border-gray-300 hover:border-gray-400"
                   }`}
                     >
                       <input
@@ -449,7 +449,7 @@ export default function SignupPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-white mb-1">
+                <label className="block text-sm font-medium mb-1">
                   Graduation Year
                 </label>
                 <CustomDropdown
@@ -461,7 +461,7 @@ export default function SignupPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-white mb-1">
+                <label className="block text-sm font-medium mb-1">
                   Branch
                 </label>
                 <CustomDropdown
@@ -472,12 +472,12 @@ export default function SignupPage() {
                 />
               </div>
               <div className="flex justify-center gap-1 md:gap-[3px]">
-                <p className="text-[15.5px] max-md:text-[14.5px] text-white font-medium md:font-semibold cursor-default">
+                <p className="text-[15.5px] max-md:text-[14.5px] font-medium md:font-semibold cursor-default">
                   Already Registered?{" "}
                 </p>
                 <Link
                   href="/login"
-                  className="max-md:text-[14.5px] text-[15.5px] text-emerald-600 hover:text-emerald-700 hover:underline focus:text-emerald-700 focus:underline font-medium md:font-semibold"
+                  className="max-md:text-[14.5px] text-[15.5px] text-blue-600 hover:text-blue-700 hover:underline focus:text-blue-700 focus:underline font-medium md:font-semibold"
                 >
                   Login
                 </Link>
@@ -485,7 +485,7 @@ export default function SignupPage() {
               <button
                 onClick={handleSendOTP}
                 disabled={loading}
-                className="w-full py-3 mt-4 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700 disabled:bg-emerald-300 transition-colors shadow-sm"
+                className="w-full py-3 mt-4 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 disabled:bg-blue-300 transition-colors shadow-sm"
               >
                 {loading ? "Sending..." : "Send OTP"}
               </button>
@@ -536,7 +536,7 @@ export default function SignupPage() {
                   sx={{
                     width: "100%",
                     "& .MuiOutlinedInput-root": {
-                      backgroundColor: "black",
+                      backgroundColor: "white",
                       borderRadius: "0.5rem",
                       "& fieldset": {
                         borderColor: "#6b7280",
@@ -549,17 +549,17 @@ export default function SignupPage() {
                       },
                     },
                     "& .MuiInputLabel-root": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                     },
                     "& .MuiOutlinedInput-root.Mui-focused .MuiInputLabel-root":
                       {
                         color: "gray.300",
                       },
                     "& .MuiOutlinedInput-input": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                     },
                     "& .MuiOutlinedInput-input::placeholder": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                       opacity: 1,
                     },
                   }}
@@ -600,7 +600,7 @@ export default function SignupPage() {
                   sx={{
                     width: "100%",
                     "& .MuiOutlinedInput-root": {
-                      backgroundColor: "black",
+                      backgroundColor: "white",
                       borderRadius: "0.5rem",
                       "& fieldset": {
                         borderColor: "#6b7280",
@@ -613,17 +613,17 @@ export default function SignupPage() {
                       },
                     },
                     "& .MuiInputLabel-root": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                     },
                     "& .MuiOutlinedInput-root.Mui-focused .MuiInputLabel-root":
                       {
                         color: "gray.300",
                       },
                     "& .MuiOutlinedInput-input": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                     },
                     "& .MuiOutlinedInput-input::placeholder": {
-                      color: "#d1d5db",
+                      color: "#4A5568",
                       opacity: 1,
                     },
                   }}
@@ -645,7 +645,7 @@ export default function SignupPage() {
                 <button
                   onClick={handleSignup}
                   disabled={loading}
-                  className="flex-1 py-3 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700 disabled:bg-emerald-300 text-sm shadow-sm"
+                  className="flex-1 py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 disabled:bg-blue-300 text-sm shadow-sm"
                 >
                   {loading ? "Signing up..." : "Complete Signup"}
                 </button>
