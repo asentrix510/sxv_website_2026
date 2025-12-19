@@ -217,13 +217,13 @@ export default function SignupPage() {
       phone: form.phone,
     });
     if (!res.success) {
-      const emailInValid= res.error.issues.find(
+      const emailInValid = res.error.issues.find(
         (issue) => issue.path[0] === "email"
       );
-      const nameInValid= res.error.issues.find(
+      const nameInValid = res.error.issues.find(
         (issue) => issue.path[0] === "name"
       );
-      const phoneInValid= res.error.issues.find(
+      const phoneInValid = res.error.issues.find(
         (issue) => issue.path[0] === "phone"
       );
       if (emailInValid) {
@@ -247,7 +247,7 @@ export default function SignupPage() {
       setStep(2);
       alert("OTP sent to your email. Please check and continue.");
     } catch (err: any) {
-      alert(err?.response?.data?.message || "Failed to send OTP");
+        alert(err.response?.data?.message || "Failed to send OTP"););
     } finally {
       setLoading(false);
     }
@@ -310,8 +310,8 @@ export default function SignupPage() {
         password: "",
         confirmPassword: "",
       });
-    } catch (err: any) {
-      alert(err?.response?.data?.message || "Signup failed");
+    } catch (error: any) {
+        alert(error.response?.data.message || "Signup failed");
     } finally {
       setLoading(false);
     }
@@ -342,8 +342,8 @@ export default function SignupPage() {
         password: "",
         confirmPassword: "",
       });
-    } catch (err: any) {
-      alert(err?.response?.data?.message || "Google Sign-Up failed");
+    } catch (error: any) {
+        alert(error.response?.data?.message || "Google Sign-Up failed"););
     } finally {
       setLoading(false);
     }
