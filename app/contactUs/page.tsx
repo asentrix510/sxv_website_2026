@@ -104,12 +104,24 @@ export default function Page() {
     // Add font via link if not present (simulated via style tag below for single file constraint)
   }, []);
 
-  const onSubmit = (data: ContactFormData) => {
+  const onSubmit = async (data: ContactFormData) => {
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) throw new Error("Failed");
+
     setIsSubmitted(true);
-    console.log('Form data:', data);
     reset();
     setTimeout(() => setIsSubmitted(false), 3000);
-  };
+  } catch (err) {
+    alert("Message could not be sent. Please try again.");
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans relative overflow-x-hidden selection:bg-red-900 selection:text-white">
