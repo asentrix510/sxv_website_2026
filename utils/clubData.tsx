@@ -14,7 +14,7 @@ export const clubs: Club[] = [
     name: "ART AND PHOTOGRAPHY CLUB",
     jpName: "芸術写真",
     description: "Capturing the soul through lenses and brushes.",
-    image:"https://instagram.fbbi1-1.fna.fbcdn.net/v/t51.2885-19/81910228_189366665682756_4904169301260369920_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby41NjcuYzIifQ&_nc_ht=instagram.fbbi1-1.fna.fbcdn.net&_nc_cat=100&_nc_oc=Q6cZ2QEbRaAWh4MryOvwGtSJ57EgLjG53Rb9iVVD3TpC5cstTwwZmhW74K4K_AFgR5vDYN31bnsf-WITyiMBS0UK1wjg&_nc_ohc=p639JsHk0DcQ7kNvwFWlxcy&_nc_gid=kP2mYyMW1Zbu3Q3je15cFA&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Afk6SQkg97wZBWGX4XCxZ262zduG-PbSad2MPCF90bGquA&oe=6945ABEC&_nc_sid=22de04",
+    image:"/placeholder-1.png",
     hanko: "美",
     overlayChar: "写"
   },
@@ -41,7 +41,7 @@ export const clubs: Club[] = [
     name: "IEEE",
     jpName: "電気工学",
     description: "Advancing technology for humanity and the future.",
-    image: "https://images.unsplash.com/photo-1555664424-778a6902201b?auto=format&fit=crop&w=800&q=80",
+    image: "/placeholder-1.png",
     hanko: "流",
     overlayChar: "電"
   },
@@ -95,7 +95,7 @@ export const clubs: Club[] = [
     name: "VEERRACING",
     jpName: "競争心",
     description: "Pushing the limits of mechanical endurance.",
-    image: "https://images.unsplash.com/photo-1532906630210-ade11930c51c?auto=format&fit=crop&w=800&q=80",
+    image: "/placeholder-1.png",
     hanko: "競",
     overlayChar: "輪"
   },
@@ -104,7 +104,7 @@ export const clubs: Club[] = [
     name: "EMOTICA",
     jpName: "感情劇",
     description: "Mastering the art of dramatic expression.",
-    image: "https://images.unsplash.com/photo-1503095392237-59a4e5c2715e?auto=format&fit=crop&w=800&q=80",
+    image: "",
     hanko: "劇",
     overlayChar: "演"
   },

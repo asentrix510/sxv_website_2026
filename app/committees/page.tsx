@@ -149,12 +149,12 @@ export default function ClubsPage() {
         )}
 
         {/* CLUB MODAL */}
-        <ClubModal 
+        {selectedClub&& (<ClubModal 
           club={selectedClub}
           isOpen={isModalOpen}
           onClose={closeModal}
-        />
-
+        />)
+        }
       </main>
     </div>
   );

@@ -3,6 +3,8 @@
 import React from 'react';
 import { Club } from "@/utils/clubData";
 import { clubCoordinators } from "@/utils/coordinatorData";
+import Image from "next/image";
+
 
 interface ClubModalProps {
   club: Club | null;
@@ -47,28 +49,26 @@ const CherryBlossom = () => (
 );
 
 export default function ClubModal({ club, isOpen, onClose }: ClubModalProps) {
+  React.useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen || !club) return null;
 
   const coordinators = clubCoordinators[club.id] || [];
 
-  // Handle escape key
-  React.useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden'; // Prevent background scroll
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen, onClose]);
 
   return (
     <>
@@ -129,10 +129,11 @@ export default function ClubModal({ club, isOpen, onClose }: ClubModalProps) {
           {/* Header with club image */}
           <div className="relative h-48 overflow-hidden border-b-4 border-[#8b5a2b]">
             <Image
-              src={club.image}
+              src={club.image || "public/placeholder-1.png"}
               alt={club.name}
               fill
               className="object-cover brightness-75"
+              unoptimized
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0f0a0a] via-transparent to-transparent" />
             
