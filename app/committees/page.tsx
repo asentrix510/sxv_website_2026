@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
-import { clubs } from "@/utils/clubData";
+import { clubs, Club } from "@/utils/clubData";
+import ClubModal from "@/components/ClubModal";
 
 // --- SUB-COMPONENTS ---
 
@@ -47,7 +48,19 @@ const GlitchingTitle = () => {
 
 export default function ClubsPage() {
   const [showAll, setShowAll] = useState(false);
+  const [selectedClub, setSelectedClub] = useState<Club | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const visibleClubs = showAll ? clubs : clubs.slice(0, 8);
+
+  const handleClubClick = (club: Club) => {
+    setSelectedClub(club);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedClub(null);
+  };
 
   return (
     <div className="min-h-screen bg-[#050000] text-[#cfcfcf] overflow-x-hidden relative font-sans">
@@ -86,7 +99,11 @@ export default function ClubsPage() {
         {/* CLUBS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 w-full max-w-[1400px]">
           {visibleClubs.map((club) => (
-            <article key={club.id} className="group relative bg-[#0f0a0a] border border-[#2e0e0e] overflow-hidden flex flex-col h-[400px] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(80,0,0,0.5)]">
+            <article 
+              key={club.id} 
+              className="group relative bg-[#0f0a0a] border border-[#2e0e0e] overflow-hidden flex flex-col h-[400px] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(80,0,0,0.5)] cursor-pointer"
+              onClick={() => handleClubClick(club)}
+            >
               
               {/* Japanese vertical tag */}
               <div className="absolute top-4 right-4 bg-black/90 border border-[#8b5a2b] text-[#8b5a2b] font-bold text-sm py-2 px-1 writing-vertical-rl z-20 group-hover:bg-[#500000] group-hover:text-white">
@@ -131,6 +148,13 @@ export default function ClubsPage() {
           </button>
         )}
 
+        {/* CLUB MODAL */}
+        {selectedClub&& (<ClubModal 
+          club={selectedClub}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />)
+        }
       </main>
     </div>
   );
