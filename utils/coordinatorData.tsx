@@ -137,11 +137,12 @@ export const clubCoordinators: Record<string, ClubPeople> = {
   },
   "12": {
     coordinators: [
-      { name: "Ryota Inoue", role: "coordinator", contact: "ryota.inoue@vssut.ac.in" },
-      { name: "Kana Takagi", role: "coordinator", contact: "kana.takagi@vssut.ac.in" }
+      { name: "Srinibas Das", role: "coordinator", contact: "ryota.inoue@vssut.ac.in" },
+      { name: "Sonakshi Pradhan", role: "coordinator", contact: "kana.takagi@vssut.ac.in" }
     ],
     facultyAdvisors: [
-      { name: "Prof. A. Pradhan", designation: "Faculty Advisor" }
+      { name: "Dr. Gyanranjan Shial", designation: "Faculty Advisor" },
+      { name: "Dr. Alina Dash", designation: "Faculty Advisor" }
     ]
   },
 

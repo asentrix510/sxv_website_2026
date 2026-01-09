@@ -131,7 +131,7 @@ export const clubs: Club[] = [
     jpName: "謎の組織",
     description:
       "Enigma, the official web and coding club of VSSUT Burla, is a dynamic community of programmers, designers, and technology enthusiasts committed to nurturing innovation and problem solving skills. The club offers students practical exposure to diverse fields such as web and app development, game design, competitive programming, artificial intelligence, machine learning, cybersecurity, cloud computing and outreach domains.",
-    image: "/clubs/enigma.jpeg",
+    image: "/clubs/enigma.png",
     hanko: "暗",
     overlayChar: "謎",
   },
