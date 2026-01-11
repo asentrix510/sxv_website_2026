@@ -11,6 +11,7 @@ import { Noto_Serif_JP, Zen_Tokyo_Zoo, Cinzel } from "next/font/google";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Sword, ChevronDown } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { jwtDecode } from 'jwt-decode'
 
 // --- Typography ---
 const noto = Noto_Serif_JP({
@@ -375,20 +376,22 @@ export default function SignupPage() {
       const payload = { ...form };
       const res = await signup(payload);
       
-      // If signup returns a token, log the user in automatically
+     
       if (res.data.token) {
-        const userData = {
-          id: res.data.user?.id || res.data.id || res.data._id || "user",
-          name: form.name, // Always use the form name for signup since we know it's correct
-          email: res.data.user?.email || res.data.email || form.email
-        };
-        
-        // Use Auth context login function which handles token storage and redirect
-        authLogin(res.data.token, userData);
-      } else {
-        // If no token returned, show success message and redirect to login
-        alert("Signup successful! Please login.");
-        window.location.href = "/login";
+        try {
+         
+          const decoded: any = jwtDecode(res.data.token)
+          const userData = {
+            id: decoded.userId || decoded._id || decoded.sub || 'user',
+            name: form.name,
+            email: decoded.email || form.email,
+          }
+
+          authLogin(res.data.token, userData)
+        } catch (decodeError) {
+          console.error('Failed to decode token:', decodeError)
+          alert('Signup successful, but failed to process login.')
+        }
       }
       
     } catch (error: any) {

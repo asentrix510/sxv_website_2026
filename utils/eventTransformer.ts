@@ -46,6 +46,7 @@ export function transformBackendEventToFrontend(backendEvent: BackendEvent): Eve
 
   return {
     id: backendEvent._id,
+    orgId: backendEvent.orgId,
     title: backendEvent.eventName,
     category: category,
     day: day,

@@ -1,5 +1,6 @@
 export type EventItems = {
   id: string
+  orgId:string
   title: string
   category: string
   day: string

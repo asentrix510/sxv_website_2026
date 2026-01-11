@@ -65,11 +65,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!cleanName || cleanName.includes('@')) {
       cleanName = userData.email.split('@')[0];
     }
-    
     const cleanUserData = {
-      ...userData,
-      name: cleanName
-    };
+      id:  userData.id, // <--- Maps _id to id
+      name: cleanName,
+      email: userData.email,
+    }
     
     // Store authentication data
     localStorage.setItem('token', token);
