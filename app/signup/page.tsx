@@ -177,12 +177,16 @@ export default function SignupPage() {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const { login: authLogin } = useAuth();
 
-  // Redirect if user has already logged in before - only after component mounts
+  // Redirect if user is already logged in - only after component mounts
   useEffect(() => {
     if (mounted) {
-      const hasLoggedInFlag = localStorage.getItem('hasLoggedIn');
-      if (hasLoggedInFlag === 'true') {
-        window.location.href = "/login";
+      // Check if user is currently logged in (has valid token and user data)
+      const token = localStorage.getItem('token');
+      const userData = localStorage.getItem('userData');
+      
+      if (token && userData) {
+        // User is already logged in, redirect to home
+        window.location.href = "/";
       }
     }
   }, [mounted]);
@@ -258,13 +262,18 @@ export default function SignupPage() {
     if (!res.success) {
       setConfirmPasswordError(false);
       setconfirmpassworderr(res.error.issues[0].message);
-    } else {
-      setConfirmPasswordError(true);
+      return;
     }
-    if (form.password != form.confirmPassword) {
+    
+    if (form.password !== form.confirmPassword) {
       setConfirmPasswordError(false);
       setconfirmpassworderr("Passwords do not match.");
+      return;
     }
+    
+    // If all validations pass
+    setConfirmPasswordError(true);
+    setconfirmpassworderr("");
   };
 
   const validateEmail = () => {
@@ -341,18 +350,26 @@ export default function SignupPage() {
   };
 
   const handleSignup = async () => {
+    // Validate OTP first
+    if (!form.otp || !/^\d{4}$/.test(form.otp)) {
+      setOtpError(false);
+      setOtpErr("Please enter a valid 4-digit OTP");
+      return;
+    }
+
     const res = SignupSchemaStep2.safeParse({
       password: form.password,
       confirmPassword: form.confirmPassword,
     });
+    
     if (!res.success) {
-      // Validation logic
       const passwordInValid = res.error.issues.find(
         (issue) => issue.path[0] === "password"
-      ); // Fixed path
+      );
       const confirmPasswordInvalid = res.error.issues.find(
         (issue) => issue.path[0] === "confirmPassword"
-      ); // Fixed path
+      );
+      
       if (passwordInValid) {
         setPasswordError(false);
         setpassworderr(passwordInValid.message);
@@ -375,56 +392,46 @@ export default function SignupPage() {
       const payload = { ...form };
       const res = await signup(payload);
       
-      // If signup returns a token, log the user in automatically
-      if (res.data.token) {
-        const userData = {
-          id: res.data.user?.id || res.data.id || res.data._id || "user",
-          name: form.name, // Always use the form name for signup since we know it's correct
-          email: res.data.user?.email || res.data.email || form.email
-        };
-        
-        // Use Auth context login function which handles token storage and redirect
-        authLogin(res.data.token, userData);
-      } else {
-        // If no token returned, show success message and redirect to login
-        alert("Signup successful! Please login.");
-        window.location.href = "/login";
-      }
+      // Always redirect to login page after successful signup
+      alert("Signup successful! Please login with your credentials.");
+      window.location.href = "/login";
       
     } catch (error: any) {
-      if(error.response?.status===404) alert("OTP expired , Please resend!");
-      else if(error.response?.status===401) alert("Invalid OTP, Please check your email.");
-      else{
-        alert(error?.response?.data.message || "Signup failed");
+      if (error.response?.status === 404) {
+        alert("OTP expired. Please resend!");
+      } else if (error.response?.status === 401) {
+        alert("Invalid OTP. Please check your email.");
+      } else {
+        alert(error?.response?.data?.message || "Signup failed");
       }
     } finally {
       setLoading(false);
     }
   };
 
-  const validateOTP = ()=>{
-    if(!(form.otp)){
+  const validateOTP = () => {
+    if (!form.otp) {
       setOtpError(false);
       setOtpErr("OTP is required");
       return;
-    }else{
-      if(!(/^\d+$/.test(form.otp))){
-        setOtpError(false);
-        setOtpErr("OTP should only contain digits");
-        return;
-      }
-      if((form.otp).toString().length!==4){
-        setOtpError(false);
-        setOtpErr("OTP should have exactly 4 digits");
-        return;
-      }
     }
-    if(/^\d{4}$/.test(form.otp)){
-      setOtpError(true);
-      setOtpErr("");
+    
+    if (!/^\d+$/.test(form.otp)) {
+      setOtpError(false);
+      setOtpErr("OTP should only contain digits");
       return;
     }
-  } 
+    
+    if (form.otp.length !== 4) {
+      setOtpError(false);
+      setOtpErr("OTP should have exactly 4 digits");
+      return;
+    }
+    
+    // If all validations pass
+    setOtpError(true);
+    setOtpErr("");
+  }; 
 
   // --- Styles ---
   const textFieldStyles = (isError: boolean | string) => ({
@@ -946,7 +953,16 @@ export default function SignupPage() {
                       }}
                     />
                     <AnimatePresence>
-                      {(!otpError && otpErr) && (<motion.p initial={{height:0,opacity:0}} animate={{height:"auto",opacity:1}} exit={{height:0,opacity:0}} className="text-red-500 text-xs mt-1 font-noto font-bold tracking-wide pl-1">{otpErr}</motion.p>)}
+                      {(!otpError && otpErr) && (
+                        <motion.p 
+                          initial={{height:0, opacity:0}} 
+                          animate={{height:"auto", opacity:1}} 
+                          exit={{height:0, opacity:0}} 
+                          className="text-red-500 text-xs mt-1 font-noto font-bold tracking-wide pl-1"
+                        >
+                          {otpErr}
+                        </motion.p>
+                      )}
                     </AnimatePresence>
                   </div>
 
@@ -959,24 +975,26 @@ export default function SignupPage() {
                       onChange={(e) =>
                         setForm({ ...form, password: e.target.value })
                       }
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton
-                              onClick={() => setShowPassword(!showPassword)}
-                              sx={{
-                                color: "#78716c",
-                                "&:hover": { color: "#dc2626" },
-                              }}
-                            >
-                              {showPassword ? (
-                                <VisibilityOff />
-                              ) : (
-                                <Visibility />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
+                      slotProps={{
+                        input: {
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                onClick={() => setShowPassword(!showPassword)}
+                                sx={{
+                                  color: "#78716c",
+                                  "&:hover": { color: "#dc2626" },
+                                }}
+                              >
+                                {showPassword ? (
+                                  <VisibilityOff />
+                                ) : (
+                                  <Visibility />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        },
                       }}
                       sx={textFieldStyles(passwordError)}
                       onBlur={validatePassword}
@@ -984,9 +1002,9 @@ export default function SignupPage() {
                     <AnimatePresence>
                       {!passwordError && passwordErr && (
                         <motion.p
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
                           className="text-red-500 text-xs mt-1 font-noto font-bold pl-1"
                         >
                           {passwordErr}
@@ -1004,26 +1022,28 @@ export default function SignupPage() {
                       onChange={(e) =>
                         setForm({ ...form, confirmPassword: e.target.value })
                       }
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton
-                              onClick={() =>
-                                setShowCurrentPassword(!showCurrentPassword)
-                              }
-                              sx={{
-                                color: "#78716c",
-                                "&:hover": { color: "#dc2626" },
-                              }}
-                            >
-                              {showCurrentPassword ? (
-                                <VisibilityOff />
-                              ) : (
-                                <Visibility />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
+                      slotProps={{
+                        input: {
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                onClick={() =>
+                                  setShowCurrentPassword(!showCurrentPassword)
+                                }
+                                sx={{
+                                  color: "#78716c",
+                                  "&:hover": { color: "#dc2626" },
+                                }}
+                              >
+                                {showCurrentPassword ? (
+                                  <VisibilityOff />
+                                ) : (
+                                  <Visibility />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        },
                       }}
                       sx={textFieldStyles(confirmpasswordError)}
                       onBlur={validateConfirmPassword}
@@ -1031,9 +1051,9 @@ export default function SignupPage() {
                     <AnimatePresence>
                       {!confirmpasswordError && confirmpasswordErr && (
                         <motion.p
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
                           className="text-red-500 text-xs mt-1 font-noto font-bold pl-1"
                         >
                           {confirmpasswordErr}

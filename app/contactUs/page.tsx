@@ -124,7 +124,7 @@ export default function Page() {
 
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans relative overflow-x-hidden selection:bg-red-900 selection:text-white">
+    <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans relative overflow-hidden selection:bg-red-900 selection:text-white">
       {/* Styles for traditional vibe */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&display=swap');
@@ -170,11 +170,11 @@ export default function Page() {
       </div>
 
       {/* Main Content Area */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center py-20 px-4 sm:px-24">
-        <div className="w-full max-w-4xl grid md:grid-cols-5 gap-0 bg-neutral-900/80 backdrop-blur-sm shadow-[0_0_100px_rgba(0,0,0,0.8)] border border-neutral-800 rounded-sm overflow-hidden">
+      <div className="relative z-10 flex items-center justify-center py-20 px-4 sm:px-24">
+        <div className="w-full max-w-4xl grid md:grid-cols-5 gap-0 bg-neutral-900/80 backdrop-blur-sm shadow-[0_0_100px_rgba(0,0,0,0.8)] border border-neutral-800 rounded-sm">
           
           {/* Left Panel: Info (Black & Gold Theme) */}
-          <div className="md:col-span-2 bg-black border-r border-neutral-800 p-10 flex flex-col justify-between relative overflow-hidden group">
+          <div className="md:col-span-2 bg-black border-r border-neutral-800 p-10 flex flex-col justify-between relative group">
             {/* Decorative Red Circle */}
             <div className="absolute -top-12 -left-12 w-48 h-48 bg-red-700 rounded-full blur-[80px] opacity-20 group-hover:opacity-30 transition-opacity duration-700"></div>
             

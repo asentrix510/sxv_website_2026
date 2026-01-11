@@ -186,7 +186,6 @@ class BackgroundEffect {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [isScrolled, setIsScrolled] = useState<boolean>(false)
-  const [hasLoggedIn, setHasLoggedIn] = useState<boolean>(false)
   const [mounted, setMounted] = useState<boolean>(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const slashesRef = useRef<Slash[]>([])
@@ -194,13 +193,9 @@ export default function Navbar() {
   const bgEffectRef = useRef<BackgroundEffect | null>(null)
   const { isLoggedIn, logout, user, loading } = useAuth()
 
-  // Check if user has logged in before - only after component mounts
+  // Component mount check
   useEffect(() => {
     setMounted(true);
-    const hasLoggedInFlag = localStorage.getItem('hasLoggedIn');
-    if (hasLoggedInFlag === 'true') {
-      setHasLoggedIn(true);
-    }
   }, []);
 
   useEffect(() => {
@@ -392,7 +387,7 @@ export default function Navbar() {
                     </span>
                   </Link>
 
-                  {!hasLoggedIn && (
+                  {!isLoggedIn && (
                     <Link 
                       href="/signup"
                       className="relative px-8 py-2 bg-[#bd0029] hover:bg-red-800 transition-all duration-300 clip-path-slant group overflow-hidden hover-trigger flex flex-col items-center justify-center min-w-[120px]"
@@ -510,7 +505,7 @@ export default function Navbar() {
                   >
                     LOGIN
                   </Link>
-                  {!hasLoggedIn && (
+                  {!isLoggedIn && (
                     <Link 
                       href="/signup"
                       className="px-8 py-3 bg-[#bd0029] text-white font-shippori text-center hover:bg-red-800 transition-colors hover-trigger w-full"

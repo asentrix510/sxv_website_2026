@@ -14,7 +14,6 @@ import {
 } from "next/font/google";
 import { LoginSchema } from "@/Schemas/loginSchema";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sword } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 // --- Typography ---
@@ -143,17 +142,29 @@ export default function LoginPage() {
   };
 
   const handleLogin = async () => {
+    // Clear previous errors
+    setError("");
+    setEmailError("");
+    setPasswordError("");
+    setEmailErr("");
+    setpassworderr("");
+
     const res = LoginSchema.safeParse({ email, password });
     if (!res.success) {
-      // ... (validation logic remains the same)
-      const emailInlValid = res.error.issues.find((issue) => issue.path[0] === "email");
+      const emailInValid = res.error.issues.find((issue) => issue.path[0] === "email");
       const passwordInValid = res.error.issues.find((issue) => issue.path[0] === "password");
-      if (emailInlValid) { setEmailError(false); setEmailErr(emailInlValid.message); }
-      if (passwordInValid) { setPasswordError(false); setpassworderr(passwordInValid.message); }
+      
+      if (emailInValid) { 
+        setEmailError(false); 
+        setEmailErr(emailInValid.message); 
+      }
+      if (passwordInValid) { 
+        setPasswordError(false); 
+        setpassworderr(passwordInValid.message); 
+      }
       return;
     }
 
-    setError("");
     setLoading(true);
     try {
       const res = await login({ email, password });
@@ -169,7 +180,7 @@ export default function LoginPage() {
       authLogin(res.data.token, userData);
       
     } catch (err: any) {
-      setError((err.response?.data?.message) || "Login failed");
+      setError(err.response?.data?.message || "Login failed. Please check your credentials.");
     } finally {
       setLoading(false);
     }
@@ -353,17 +364,6 @@ export default function LoginPage() {
           </div>
 
           <div className="space-y-6">
-            {/* REMOVED GOOGLE SIGN IN BUTTON */}
-
-            {/* Sword Divider (Kept as a separator) */}
-            <div className="relative flex items-center justify-center py-2">
-              <div className="flex-grow h-px bg-gradient-to-r from-transparent via-[#7f1d1d] to-transparent"></div>
-              <div className="mx-4 text-[#7f1d1d] rotate-45 transform opacity-80">
-                <Sword size={24} strokeWidth={1.5} />
-              </div>
-              <div className="flex-grow h-px bg-gradient-to-r from-transparent via-[#7f1d1d] to-transparent"></div>
-            </div>
-
             {/* Inputs */}
             <div className="space-y-6">
               <div className="relative">
@@ -394,14 +394,16 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" sx={{ color: "#78716c", "&:hover": { color: "#dc2626" } }}>
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" sx={{ color: "#78716c", "&:hover": { color: "#dc2626" } }}>
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    },
                   }}
                   sx={textFieldStyles(passwordError)}
                   onBlur={validatePassword}

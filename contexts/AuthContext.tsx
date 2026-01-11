@@ -43,7 +43,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (token && userData) {
       try {
         const parsedUserData = JSON.parse(userData);
-        setUser(parsedUserData);
+        
+        // Ensure we have a proper name (not email) even for existing stored data
+        let cleanName = parsedUserData.name;
+        if (!cleanName || cleanName.trim() === '' || cleanName.includes('@')) {
+          const emailUsername = parsedUserData.email.split('@')[0];
+          
+          // Clean up the username: remove numbers, replace dots/underscores/hyphens with spaces, capitalize words
+          cleanName = emailUsername
+            .replace(/[0-9]/g, '') // Remove numbers
+            .replace(/[._-]/g, ' ') // Replace dots, underscores, hyphens with spaces
+            .split(' ')
+            .filter(word => word.length > 0) // Remove empty strings
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+            .join(' ');
+          
+          // If still empty or too short, use a fallback
+          if (!cleanName || cleanName.trim().length < 2) {
+            cleanName = 'User';
+          }
+          
+          // Update stored data with clean name
+          const updatedUserData = { ...parsedUserData, name: cleanName.trim() };
+          localStorage.setItem('userData', JSON.stringify(updatedUserData));
+          setUser(updatedUserData);
+        } else {
+          setUser(parsedUserData);
+        }
+        
         // Set axios default header for authenticated requests
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       } catch (error) {
@@ -61,21 +88,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Ensure we have a proper name (not email)
     let cleanName = userData.name;
     
-    // If name is empty, null, or looks like an email, extract from email
-    if (!cleanName || cleanName.includes('@')) {
-      cleanName = userData.email.split('@')[0];
+    // If name is empty, null, undefined, or looks like an email, extract from email
+    if (!cleanName || cleanName.trim() === '' || cleanName.includes('@')) {
+      // Extract username from email (part before @)
+      const emailUsername = userData.email.split('@')[0];
+      
+      // Clean up the username: remove numbers, replace dots/underscores/hyphens with spaces, capitalize words
+      cleanName = emailUsername
+        .replace(/[0-9]/g, '') // Remove numbers
+        .replace(/[._-]/g, ' ') // Replace dots, underscores, hyphens with spaces
+        .split(' ')
+        .filter(word => word.length > 0) // Remove empty strings
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+        .join(' ');
+      
+      // If still empty or too short, use a fallback
+      if (!cleanName || cleanName.trim().length < 2) {
+        cleanName = 'User';
+      }
     }
     
     const cleanUserData = {
       ...userData,
-      name: cleanName
+      name: cleanName.trim()
     };
     
     // Store authentication data
     localStorage.setItem('token', token);
     localStorage.setItem('userData', JSON.stringify(cleanUserData));
     
-    // Mark that user has logged in at least once (hide register button)
+    // Mark that user has logged in at least once
     localStorage.setItem('hasLoggedIn', 'true');
     
     // Set user state
